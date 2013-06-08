@@ -10,6 +10,8 @@
   "author": "",
   "license": "BSD",
   "dependencies": {
-    "xmldoc": "~0.1.1"
+    "xmldoc": "~0.1.1",
+    "brauhaus": "~0.2.3",
+    "xml2js": "~0.2.7"
   }
 }

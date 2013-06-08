@@ -1,27 +1,37 @@
-var fs = require('fs'),
-    xml = require('xmldoc'),
-    _ = require('underscore');
+var bh = require('brauhaus');
+var fs = require('fs');
 
-fs.readFile(process.argv[2], 'utf8', function(err, beerxml) {
-  var xbeer = new xml.XmlDocument(beerxml);
+var xmlFile = process.argv[2];
 
-  function processRecipe(xmlrecipe) {
-    var recipe = {};
+fs.readFile(xmlFile, 'utf8', function(err, xml) {
+  if (err) throw err;
 
-    recipe.name = xmlrecipe.valueWithPath("NAME");
-    recipe.brewer = xmlrecipe.valueWithPath("BREWER"); 
-    recipe.style = xmlrecipe.valueWithPath("STYLE.NAME");
-    recipe.batchSize = parseFloat(xmlrecipe.valueWithPath("BATCH_SIZE"));
-    recipe.boilSize = parseFloat(xmlrecipe.valueWithPath("BOIL_SIZE"));
-    recipe.boilTime = parseInt(xmlrecipe.valueWithPath("BOIL_TIME"));
-    recipe.efficiency = parseFloat(xmlrecipe.valueWithPath("EFFICIENCY"));
-    recipe.og = parseFloat(xmlrecipe.valueWithPath("OG"));
-    recipe.fg = parseFloat(xmlrecipe.valueWithPath("FG"));
-    recipe.ibu = parseFloat(xmlrecipe.valueWithPath("IBU"));
-    recipe.abv = parseFloat(xmlrecipe.valueWithPath("EST_ABV"));
+  var recipe = bh.Recipe.fromBeerXml(xml);
+  recipe = recipe[0];
+  recipe.calculate();
+  console.log(JSON.stringify(recipe, true, " "));
 
-    return JSON.stringify(recipe, true, "  ");
+  var beer = {
+    name: recipe.name,
+    batchSize: recipe.batchSize,
+    boilSize: recipe.boilSize,
+    units: 'metric',
+    brewer: recipe.author,
+    og: recipe.og,
+    fg: recipe.fg,
+    color: recipe.color,
+    abv: recipe.abv
+  };
+
+  if (Array.isArray(recipe.fermentables)) {
+    beer.fermentables = {};
+    recipe.fermentables.forEach(function(fermentable) {
+      beer.fermentables[fermentable.name] = fermentable.weight;
+    });
   }
 
-  console.log(processRecipe(xbeer.children[0]))
+  if (recipe.style && recipe.style.name) beer.style = recipe.style.name;
+
+  console.log(JSON.stringify(beer, true, "  "))
+  
 });
