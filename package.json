@@ -1,9 +1,11 @@
 {
   "name": "beerjson",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "simply represent a brew recipe with json.",
   "main": "beerjson.js",
-  "bin": { "bxml2bjson": "./convertBeerXmlFile.js" },
+  "bin": {
+    "bxml2bjson": "./convertBeerXmlFile.js"
+  },
   "repository": "http://www.github.com/jonpacker/beerjson",
   "author": "Jon Packer <contact@jonpacker.com>",
   "license": "MIT",
