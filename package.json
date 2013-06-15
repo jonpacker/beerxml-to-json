@@ -1,6 +1,6 @@
 {
   "name": "beerjson",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "simply represent a brew recipe with json.",
   "main": "beerjson.js",
   "bin": {
