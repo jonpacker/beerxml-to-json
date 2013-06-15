@@ -239,7 +239,7 @@ module.exports = function createBeerJson(beerxml, cb) {
         return cb(err);
       }
 
-      convert.bind(this, result, emit, cb);
+      convert(result, emit, cb);
     });
   });
 
