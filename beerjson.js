@@ -1,0 +1,1 @@
+exports.fromBeerXml = require('./convertBeerXml');
