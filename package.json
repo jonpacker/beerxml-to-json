@@ -2,21 +2,15 @@
   "name": "beerjson",
   "version": "0.0.0",
   "description": "simply represent a brew recipe with json.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": "",
-  "author": "",
-  "license": "BSD",
+  "main": "beerjson.js",
+  "bin": { "bxml2bjson": "./convertBeerXmlFile.js" }
+  "repository": "http://www.github.com/jonpacker/beerjson",
+  "author": "Jon Packer <contact@jonpacker.com>",
+  "license": "MIT",
   "dependencies": {
-    "xmldoc": "~0.1.1",
-    "brauhaus": "~0.2.3",
     "xml2js": "~0.2.7",
     "async": "~0.2.9",
-    "naan": "~1.3.10",
     "JSONPath": "~0.9.1",
-    "underscore": "~1.4.4",
     "format-measurement": "~0.1.1",
     "moment": "~2.0.0",
     "tinseth": "~1.0.0"

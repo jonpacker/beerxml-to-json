@@ -219,6 +219,10 @@ function createBeerJson(beerxml, cb) {
       color = 1.4922 * Math.pow(color, 0.6859); 
 
       cb(null, parseFloat(color.toFixed(1)));
+    }],
+    abv: ["og", "fg", function(cb, beer) {
+      var abv = ((76.08*(beer.og-beer.fg)/(1.775-beer.og))*(beer.fg/0.794));
+      cb(null, parseFloat(abv.toFixed(1)) / 100);
     }]
   };
 
