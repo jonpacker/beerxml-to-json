@@ -28,7 +28,7 @@ var floatify = function(resolver, modifier) {
 var convert = function(beerxml, emit, cb) {
   if (!beerxml.RECIPES) {
     var error = "Couldn't find any recipes in input XML.";
-    emit('error', error);
+    emit('err', error);
     return cb(new Error(error));
   }
 
@@ -220,7 +220,7 @@ var convert = function(beerxml, emit, cb) {
 
   async.auto(prototype, function(err, result) {
     if (err) {
-      emit('error', err.message || err)
+      emit('err', err.message || err)
       return cb(err);
     }
     
@@ -231,8 +231,17 @@ var convert = function(beerxml, emit, cb) {
 module.exports = function createBeerJson(beerxml, cb) {
   var events = new EventEmitter(), emit = events.emit.bind(events); 
 
-  // nextTick it to give any subscribers a chance to listen to the events -
-  process.nextTick(convert.bind(this, beerxml, emit, cb));
+  process.nextTick(function() {
+    parseXml(beerxml, function(err, result) {
+      if (err) {
+        emit('err', "Couldn't parse XML. Reason follows:");
+        emit('err', err.message || err);
+        return cb(err);
+      }
+
+      convert.bind(this, result, emit, cb);
+    });
+  });
 
   return events;
 };
