@@ -23,5 +23,5 @@ node. Use it like this:
 
 ```
 npm install -g beerjson
-beerxml2json sweet-recipe.json
+bxml2bjson sweet-recipe.json
 ```
