@@ -15,6 +15,7 @@
     "JSONPath": "~0.9.1",
     "format-measurement": "~0.1.1",
     "moment": "~2.0.0",
-    "tinseth": "~1.0.0"
+    "tinseth": "~1.0.0",
+    "colors": "~0.6.0-1"
   }
 }
